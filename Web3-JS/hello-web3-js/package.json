@@ -1,0 +1,19 @@
+{
+  "name": "hello-web3-js",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "My first time interacting with blockchain through NodeJs with help of web3.js library",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Web3"
+  ],
+  "author": "Prathamesh Mutkure",
+  "license": "MIT",
+  "dependencies": {
+    "web3": "^1.7.1"
+  }
+}
