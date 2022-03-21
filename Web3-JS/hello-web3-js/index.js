@@ -12,8 +12,9 @@ console.log("Account List in Ganache: ");
 console.table(accounts);
 
 /***** Get Balance *****/
+/***** Conversions *****/
 
-const printAllAccountBalance = async () => {
+export const printAllAccountBalance = async () => {
   const allAccountBalance = await Promise.all(
     accounts.map(async (acc) => {
       const balanceInWei = await web3.eth.getBalance(acc);
