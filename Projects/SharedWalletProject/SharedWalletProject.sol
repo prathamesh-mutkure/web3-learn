@@ -27,7 +27,7 @@ contract SharedWalletProject is Allowance {
 
     // Oveeriding this method to reverse transaction
     // so that owner cannot be changed
-    function renounceOwnership() public override view ownerOnly {
+    function renounceOwnership() public view override ownerOnly {
         revert("Renouncing ownership not possible with this contract");
     }
 

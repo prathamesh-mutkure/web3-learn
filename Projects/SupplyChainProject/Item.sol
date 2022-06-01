@@ -5,13 +5,16 @@ pragma solidity ^0.8.7;
 import "./ItemManager.sol";
 
 contract Item {
-
-    uint public price;
-    uint public paid;
-    uint public index;
+    uint256 public price;
+    uint256 public paid;
+    uint256 public index;
     ItemManager parentContract;
 
-    constructor(ItemManager _parentContract, uint _index, uint _price) {
+    constructor(
+        ItemManager _parentContract,
+        uint256 _index,
+        uint256 _price
+    ) {
         parentContract = _parentContract;
         index = _index;
         price = _price;
@@ -24,14 +27,13 @@ contract Item {
         require(paid == 0, "Already Paid");
         paid += msg.value;
 
-        (bool success, ) = address(parentContract).call{value: msg.value}(abi.encodeWithSignature("triggerPayment(uint256)", index));
+        (bool success, ) = address(parentContract).call{value: msg.value}(
+            abi.encodeWithSignature("triggerPayment(uint256)", index)
+        );
 
         require(success, "Error in payment, reverting transaction");
     }
 
     // Fallback function to be able to interact with smart contract through remix
-    fallback() external {
-
-    }
+    fallback() external {}
 }
-

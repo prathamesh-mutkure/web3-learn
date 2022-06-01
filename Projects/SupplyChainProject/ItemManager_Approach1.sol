@@ -9,21 +9,21 @@ contract ItemManager {
         Delivered
     }
 
-    event SupplyChainStepEvent(uint _index, SupplyChainSteps _step);
+    event SupplyChainStepEvent(uint256 _index, SupplyChainSteps _step);
 
     struct Item {
         string identifier;
-        uint price;
+        uint256 price;
         ItemManager.SupplyChainSteps step;
     }
 
-    mapping(uint => Item) public items;
-    uint index;
+    mapping(uint256 => Item) public items;
+    uint256 index;
 
     // Create Item
     // Store it in items
     // And emit event
-    function createItem(string memory _identifier, uint _price) public {
+    function createItem(string memory _identifier, uint256 _price) public {
         items[index].identifier = _identifier;
         items[index].price = _price;
         items[index].step = SupplyChainSteps.Created;
@@ -34,9 +34,12 @@ contract ItemManager {
     }
 
     // Trigger Payment
-    function triggerPayment(uint _index) public payable {
+    function triggerPayment(uint256 _index) public payable {
         require(items[_index].price == msg.value, "Full payment only!");
-        require(items[_index].step == SupplyChainSteps.Created, "Item further in Supply Chain");
+        require(
+            items[_index].step == SupplyChainSteps.Created,
+            "Item further in Supply Chain"
+        );
 
         items[_index].step = SupplyChainSteps.Paid;
 
@@ -44,8 +47,11 @@ contract ItemManager {
     }
 
     // Trigger Delivery
-    function triggerDelivery(uint _index) public {
-        require(items[_index].step == SupplyChainSteps.Paid, "Item further in Supply Chain");
+    function triggerDelivery(uint256 _index) public {
+        require(
+            items[_index].step == SupplyChainSteps.Paid,
+            "Item further in Supply Chain"
+        );
 
         items[_index].step = SupplyChainSteps.Delivered;
 
@@ -57,4 +63,3 @@ contract ItemManager {
 // User will have to enter the index manually
 // Ideally, the user should just be able to send money to the address
 // And nothing else
-
