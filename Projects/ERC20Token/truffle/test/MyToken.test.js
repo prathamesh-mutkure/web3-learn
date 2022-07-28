@@ -1,5 +1,7 @@
 const MyToken = artifacts.require("MyToken");
 
+require("dotenv").config({ path: "../.env" });
+
 const chai = require("chai");
 
 const BN = web3.utils.BN;
@@ -14,8 +16,12 @@ const expect = chai.expect;
 contract("MyToken", async (accounts) => {
   const [initialHolder, recipient, anotherAccount] = accounts;
 
+  beforeEach(async () => {
+    this.myToken = await MyToken.new(process.env.INITIAL_SUPPLY);
+  });
+
   it("...All tokens should be in my account", async () => {
-    const instance = await MyToken.deployed();
+    const instance = this.myToken;
 
     const totalSupply = await instance.totalSupply();
 
@@ -26,7 +32,7 @@ contract("MyToken", async (accounts) => {
 
   it("...should transfer tokens from one account to another", async () => {
     const sendTokenCount = 1;
-    const instance = await MyToken.deployed();
+    const instance = this.myToken;
     const totalSupply = await instance.totalSupply();
 
     await expect(
@@ -48,7 +54,7 @@ contract("MyToken", async (accounts) => {
   });
 
   it("...is not possible to send more tokens than available", async () => {
-    const instance = await MyToken.deployed();
+    const instance = this.myToken;
     const balanceOfDeployer = await instance.balanceOf(initialHolder);
 
     await expect(instance.transfer(recipient, new BN(balanceOfDeployer + 1))).to
