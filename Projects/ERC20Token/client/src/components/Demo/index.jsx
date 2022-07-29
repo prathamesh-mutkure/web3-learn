@@ -12,7 +12,7 @@ function Demo() {
   const { state } = useEth();
   const [value, setValue] = useState("?");
 
-  const demo =
+  const demo = (
     <>
       <Cta />
       <div className="contract-container">
@@ -20,16 +20,19 @@ function Demo() {
         <ContractBtns setValue={setValue} />
       </div>
       <Desc />
-    </>;
+    </>
+  );
 
   return (
     <div className="demo">
       <Title />
-      {
-        !state.artifact ? <NoticeNoArtifact /> :
-          !state.contract ? <NoticeWrongNetwork /> :
-            demo
-      }
+      {!state.tokenArtifact ? (
+        <NoticeNoArtifact />
+      ) : !state.tokenContract ? (
+        <NoticeWrongNetwork />
+      ) : (
+        demo
+      )}
     </div>
   );
 }
