@@ -12,15 +12,25 @@ const KYCPage = () => {
   };
 
   const whitelistClick = async () => {
-    await kycContract.methods
-      .setKycComplete(accountAddress)
-      .send({ from: accounts[0] });
+    try {
+      console.log("Accounts: ", accounts);
+      await kycContract.methods
+        .setKycComplete(accountAddress)
+        .send({ from: accounts[0] });
 
-    alert("Whitelisted " + accountAddress);
+      alert("Whitelisted " + accountAddress);
+    } catch (e) {
+      console.log(e);
+      alert("Error whitelisting account");
+    }
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
+      <h1>StarDucks Cappuchino</h1>
+      <hr />
+      <h3>KYC for Accounts</h3>
+      <hr />
       Account to whitelist:{" "}
       <input
         type="text"
@@ -29,7 +39,7 @@ const KYCPage = () => {
         value={accountAddress}
         onChange={handleInputChange}
       />{" "}
-      <input type="button" value="submit" onClick={whitelistClick} />
+      <input type="button" value="VERIFY" onClick={whitelistClick} />
     </div>
   );
 };

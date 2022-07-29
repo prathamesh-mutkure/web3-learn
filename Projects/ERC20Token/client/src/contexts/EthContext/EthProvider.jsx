@@ -11,7 +11,7 @@ function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = useCallback(
-    async (tokenArtifact, tokenSaleArtifact, KycArtifact) => {
+    async (tokenArtifact, tokenSaleArtifact, kycArtifact) => {
       if (tokenArtifact) {
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         const accounts = await web3.eth.requestAccounts();
@@ -29,8 +29,8 @@ function EthProvider({ children }) {
             tokenSaleArtifact.networks[networkID].address
           );
           kycContract = new web3.eth.Contract(
-            KycArtifact.abi,
-            KycArtifact.networks[networkID].address
+            kycArtifact.abi,
+            kycArtifact.networks[networkID].address
           );
         } catch (err) {
           console.error(err);
@@ -44,7 +44,7 @@ function EthProvider({ children }) {
             networkID,
             tokenArtifact,
             tokenSaleArtifact,
-            KycArtifact,
+            kycArtifact,
             tokenContract,
             tokenSaleContract,
             kycContract,
@@ -74,6 +74,8 @@ function EthProvider({ children }) {
   useEffect(() => {
     const events = ["chainChanged", "accountsChanged"];
     const handleChange = () => {
+      console.log("TOKEN ARTIFACT: ", state.tokenArtifact);
+      console.log("KYC ARTIFACT: ", state.kycArtifact);
       init(state.tokenArtifact, state.tokenSaleArtifact, state.kycArtifact);
     };
 
