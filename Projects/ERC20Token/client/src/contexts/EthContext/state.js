@@ -14,6 +14,8 @@ const initialState = {
   tokenContract: null,
   tokenSaleContract: null,
   kycContract: null,
+
+  tokenBalance: 0,
 };
 
 const reducer = (state, action) => {

@@ -74,8 +74,6 @@ function EthProvider({ children }) {
   useEffect(() => {
     const events = ["chainChanged", "accountsChanged"];
     const handleChange = () => {
-      console.log("TOKEN ARTIFACT: ", state.tokenArtifact);
-      console.log("KYC ARTIFACT: ", state.kycArtifact);
       init(state.tokenArtifact, state.tokenSaleArtifact, state.kycArtifact);
     };
 

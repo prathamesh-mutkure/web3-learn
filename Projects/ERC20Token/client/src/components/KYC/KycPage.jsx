@@ -13,7 +13,6 @@ const KYCPage = () => {
 
   const whitelistClick = async () => {
     try {
-      console.log("Accounts: ", accounts);
       await kycContract.methods
         .setKycComplete(accountAddress)
         .send({ from: accounts[0] });
